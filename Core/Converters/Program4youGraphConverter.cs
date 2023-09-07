@@ -1,18 +1,18 @@
-﻿using Core.MapObj.Entities;
-using Core.MapObj.Parsers.Program4you;
+﻿using Core.DTOs;
+using Core.Entities;
 
-namespace Core.MapObj.Converters
+namespace Core.Converters
 {
     internal class Program4youGraphConverter
     {
-        public static Map Convert(Program4youGraph dataGraph)
+        public static Map Convert(Program4youDTO dataGraph)
         {
             Map convertedResult = new Map();
-            foreach (Program4youGraph.Vertex v in dataGraph.vertices)
+            foreach (Program4youDTO.Vertex v in dataGraph.vertices)
             {
                 _ = new MapPoint(convertedResult, v.name);
             }
-            foreach (Program4youGraph.Egde e in dataGraph.edges)
+            foreach (Program4youDTO.Egde e in dataGraph.edges)
             {
                 MapPoint v1 = convertedResult.Points[e.vertex1];
                 MapPoint v2 = convertedResult.Points[e.vertex2];

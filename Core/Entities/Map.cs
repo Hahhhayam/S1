@@ -1,4 +1,4 @@
-﻿namespace Core.MapObj.Entities
+﻿namespace Core.Entities
 {
     internal class Map
     {

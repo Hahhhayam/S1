@@ -1,10 +1,12 @@
-﻿namespace Core.MapObj.Entities
+﻿namespace Core.Entities
 {
     internal class MapPoint
     {
         public Map Map { get; init; }
         public string Name { get; init; }
         public List<MapRoad> Roads { get; } = new List<MapRoad>();
+
+        public List<Order> Orders { get; } = new List<Order>();
 
         public MapPoint(Map map, string name)
         {
