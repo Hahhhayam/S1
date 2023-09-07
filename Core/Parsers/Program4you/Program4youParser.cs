@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Core.DTOs;
+using Newtonsoft.Json;
 using System.Text;
 
-namespace Core.MapObj.Parsers.Program4you
+namespace Core.Parsers.Program4you
 {
     internal class Program4youParser
     {
-        const string PATH = @"C:\Users\reset\source\repos\Courier\Core\MapObj\data\";
+        const string PATH = @"C:\Users\reset\source\repos\Courier\Core\data\";
         public Program4youParser(string name)
         {
             string data;
@@ -18,10 +19,10 @@ namespace Core.MapObj.Parsers.Program4you
                 data = Encoding.Default.GetString(buffer);
             }
 
-            Graph = JsonConvert.DeserializeObject<Program4youGraph>(data)
+            Graph = JsonConvert.DeserializeObject<Program4youDTO>(data)
                 ?? throw new NullReferenceException();
         }
 
-        public Program4youGraph Graph { get; set; }
+        public Program4youDTO Graph { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Core.MapObj.DTOs
+﻿namespace Core.DTOs
 {
     internal class MapRouteDTO
     {

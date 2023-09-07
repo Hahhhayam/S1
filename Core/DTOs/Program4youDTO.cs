@@ -1,6 +1,6 @@
-﻿namespace Core.MapObj.Parsers.Program4you
+﻿namespace Core.DTOs
 {
-    internal class Program4youGraph
+    internal class Program4youDTO
     {
         public double x0;
         public double y0;
