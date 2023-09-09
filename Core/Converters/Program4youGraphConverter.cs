@@ -5,7 +5,7 @@ namespace Core.Converters
 {
     internal class Program4youGraphConverter
     {
-        public static Map Convert(Program4youDTO dataGraph)
+        public Map Convert(Program4youDTO dataGraph)
         {
             Map convertedResult = new Map();
             foreach (Program4youDTO.Vertex v in dataGraph.vertices)

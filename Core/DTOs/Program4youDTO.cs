@@ -1,12 +1,20 @@
 ﻿namespace Core.DTOs
 {
-    internal class Program4youDTO
+    internal class Program4youDTO : IDisposable
     {
         public double x0;
         public double y0;
         public List<Vertex> vertices;
         public List<Egde> edges;
         public List<Text> texts;
+
+        public void Dispose()
+        {
+            vertices.GetEnumerator().Dispose();
+            edges.GetEnumerator().Dispose();    
+            texts.GetEnumerator().Dispose();
+        }
+
         internal class Vertex
         {
             public double x;
