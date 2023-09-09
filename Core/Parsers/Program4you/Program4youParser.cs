@@ -1,28 +1,64 @@
-﻿using Core.DTOs;
+﻿using Core.Converters;
+using Core.DTOs;
+using Core.Entities;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace Core.Parsers.Program4you
 {
-    internal class Program4youParser
+    internal sealed class Program4youParser : IBaseParser
     {
-        const string PATH = @"C:\Users\reset\source\repos\Courier\Core\data\";
-        public Program4youParser(string name)
+        public string FileName { get; init; }
+        public string JsonData { get; private set; }
+        private const string EXT = ".graph";
+
+        private Program4youDTO parsedGraph;
+        private FileStream stream;
+        private Program4youGraphConverter _converter = new ();
+
+        public Program4youParser(string filename)
         {
-            string data;
-
-            using (FileStream fs = File.OpenRead(PATH + name + ".graph"))
-            {
-                Console.WriteLine(fs.Name);
-                byte[] buffer = new byte[fs.Length];
-                fs.Read(buffer, 0, buffer.Length);
-                data = Encoding.Default.GetString(buffer);
-            }
-
-            Graph = JsonConvert.DeserializeObject<Program4youDTO>(data)
-                ?? throw new NullReferenceException();
+            FileName = filename;
         }
 
-        public Program4youDTO Graph { get; set; }
+        public void Read()
+        {
+            stream = File.OpenRead(GLOBALS.DATAPATHA + FileName + EXT);
+
+            byte[] buffer = new byte[stream.Length];
+            stream.Read(buffer, 0, buffer.Length);
+            JsonData = Encoding.Default.GetString(buffer);
+        }
+
+        public Map Parse()
+        {
+            if (JsonData == null)
+                throw new NullReferenceException(nameof(JsonData) + "was null. File not readed already");
+            parsedGraph = JsonConvert.DeserializeObject<Program4youDTO>(JsonData)
+                ?? throw new Exception("Parsing error");
+            return _converter.Convert(parsedGraph);
+        }
+
+        #region Disposability
+        private bool _disposed;
+        ~Program4youParser() => Dispose(false);
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposingPoint)
+        {
+            if (_disposed) return;
+            if (disposingPoint)
+            {
+                parsedGraph.Dispose();
+                stream.Dispose();
+            }
+            JsonData = null;
+            _converter = null;
+        }
+        #endregion
     }
 }
