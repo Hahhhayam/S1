@@ -2,7 +2,7 @@
 {
     internal class Order
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public MapPoint Point { get; set; }
         public DateTimeOffset Time { get; set; } = DateTimeOffset.Now;
         public User User { get; set; }
